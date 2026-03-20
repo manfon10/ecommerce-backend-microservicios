@@ -148,6 +148,8 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+          git pull --rebase origin main
+
           DATE=$(date +%Y-%m-%d)
 
           PREV_TAG=$(git describe --tags --abbrev=0 "v$NEW_VERSION^" 2>/dev/null || echo "")
