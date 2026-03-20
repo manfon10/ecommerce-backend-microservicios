@@ -28,6 +28,10 @@ cd ecommerce-backend-microservicios
 # 5. Levantar todo
 
 docker compose --env-file .env up --build -d
+
+# 6. Ingresar al aplicativo front
+
+http://localhost:3003
 ```
 
 PostgreSQL, RabbitMQ, ambos microservicios y el gateway se inician automáticamente.
