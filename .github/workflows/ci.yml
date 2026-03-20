@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: [catalog-service, orders-service, api-gateway]
+        service: [catalog-service, orders-service, api-gateway, ecommerce-app]
     steps:
       - uses: actions/checkout@v4
 
@@ -42,7 +42,7 @@ jobs:
     needs: install
     strategy:
       matrix:
-        service: [catalog-service, orders-service, api-gateway]
+        service: [catalog-service, orders-service, api-gateway, ecommerce-app]
     steps:
       - uses: actions/checkout@v4
 
@@ -157,13 +157,12 @@ jobs:
             ALL_COMMITS=$(git log "$PREV_TAG..v$NEW_VERSION" --pretty=format:"%s" | grep -v "\[skip ci\]")
           fi
 
-          # Group by conventional commit prefix
-          FEATURES=$(echo   "$ALL_COMMITS" | grep "^feat"      | sed 's/^feat[^:]*: /- /')
-          FIXES=$(echo      "$ALL_COMMITS" | grep "^fix"       | sed 's/^fix[^:]*: /- /')
-          REFACTORS=$(echo  "$ALL_COMMITS" | grep "^refactor"  | sed 's/^refactor[^:]*: /- /')
-          DOCS=$(echo       "$ALL_COMMITS" | grep "^docs"      | sed 's/^docs[^:]*: /- /')
-          CHORES=$(echo     "$ALL_COMMITS" | grep "^chore"     | sed 's/^chore[^:]*: /- /' | grep -v "bump version")
-          OTHERS=$(echo     "$ALL_COMMITS" | grep -vE "^(feat|fix|refactor|docs|chore)" | sed 's/^/- /')
+          FEATURES=$(echo   "$ALL_COMMITS" | grep "^feat"      | sed 's/^feat[^:]*: /- /') || true
+          FIXES=$(echo      "$ALL_COMMITS" | grep "^fix"       | sed 's/^fix[^:]*: /- /') || true
+          REFACTORS=$(echo  "$ALL_COMMITS" | grep "^refactor"  | sed 's/^refactor[^:]*: /- /') || true
+          DOCS=$(echo       "$ALL_COMMITS" | grep "^docs"      | sed 's/^docs[^:]*: /- /') || true
+          CHORES=$(echo     "$ALL_COMMITS" | grep "^chore"     | sed 's/^chore[^:]*: /- /' | grep -v "bump version") || true
+          OTHERS=$(echo     "$ALL_COMMITS" | grep -vE "^(feat|fix|refactor|docs|chore)" | sed 's/^/- /') || true
 
           ENTRY="## [v$NEW_VERSION] - $DATE\n"
           [ -n "$FEATURES"  ] && ENTRY="${ENTRY}\n### Features\n${FEATURES}\n"
