@@ -113,7 +113,7 @@ jobs:
 
           echo "Bump type: $BUMP"
 
-          for SERVICE in catalog-service orders-service api-gateway; do
+          for SERVICE in catalog-service orders-service api-gateway ecommerce-app; do
             cd $SERVICE && npm version $BUMP --no-git-tag-version && cd ..
           done
 
