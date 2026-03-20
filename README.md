@@ -4,6 +4,8 @@ Backend de comercio electrónico construido con NestJS, PostgreSQL y Docker.
 
 ## Arquitectura
 
+![rabbitmq_architecture](https://github.com/user-attachments/assets/1548b039-e1e8-43f5-be16-b475b44d733d)
+
 Tres servicios NestJS comparten una instancia PostgreSQL, cada uno con su propio esquema para mantener una separación lógica y su comunicacion asincrona mediante eventos (mensajes).
 
 ## Inicio rápido
